@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class FlappyBird extends JPanel {
+public class FlappyBird extends JPanel{
     int boardWidth = 360;
     int boardHeight = 640;
 
@@ -11,6 +11,27 @@ public class FlappyBird extends JPanel {
     Image topPipeImg;
     Image bottomPipeImage;
 
+    //Bird
+    int birdX = boardWidth/8;
+    int birdY = boardHeight/2;
+    int birdWidth = 34;
+    int birdHeight = 24;
+
+    class Bird{
+        int x = birdX;
+        int y = birdY;
+        int width = birdWidth;
+        int height = birdHeight;
+        Image img;
+
+        Bird(Image img) {
+            this.img = img;
+        }
+    }
+
+    // game logic
+    Bird bird;
+
     FlappyBird() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
 
@@ -19,26 +40,23 @@ public class FlappyBird extends JPanel {
         birdImg = new ImageIcon(getClass().getResource("./flappybird.png")).getImage();
         topPipeImg = new ImageIcon(getClass().getResource("./toppipe.png")).getImage();
         bottomPipeImage = new ImageIcon(getClass().getResource("./bottompipeimage.png")).getImage();
+
+        //bird
+        bird = new Bird(birdImg);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // Call the JPanel's paintComponent method
+    
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         draw(g);
     }
 
     private void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, boardWidth, boardHeight, null);
-        // Add more drawing logic as needed
+
+        // Bird
+        g.drawImage(bird.img, bird.x, bird.y, bird.width, bird.height, null);
+        
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Flappy Bird");
-        FlappyBird gamePanel = new FlappyBird();
-
-        frame.add(gamePanel);
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
 }
