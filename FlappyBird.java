@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 
-public class FlappyBird extends JPanel implements ActionListener {
+public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     int boardWidth = 360;
     int boardHeight = 640;
 
@@ -21,7 +23,23 @@ public class FlappyBird extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        move();
         repaint();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     class Bird {
@@ -38,7 +56,8 @@ public class FlappyBird extends JPanel implements ActionListener {
 
     // Game logic
     Bird bird;
-    int velocityY = 0;
+    int velocityY = -9;
+    int gravity = 1;
 
 
     Timer gameloop;
@@ -72,6 +91,13 @@ public class FlappyBird extends JPanel implements ActionListener {
 
         // Bird
         g.drawImage(bird.img, bird.x, bird.y, bird.width, bird.height, null);
+    }
+
+    public void move() {
+        // bird
+        velocityY += gravity;
+        bird.y += velocityY;
+        bird.y = Math.max(bird.y, 0);
     }
 
     public static void main(String[] args) {
