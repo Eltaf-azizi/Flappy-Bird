@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.PipedInputStream;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.*;
 
 public class FlappyBird extends JPanel implements ActionListener, KeyListener {
@@ -23,6 +24,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     int birdWidth = 34;
     int birdHeight = 24;
     private final Timer placePipesTimer;
+    private int openingSpace;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -87,9 +89,12 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     int gravity = 1;
 
     ArrayList<Pipe> pipes;
+    Random random = new Random();
 
 
     Timer gameloop;
+    boolean gameOver = false;
+
 
     FlappyBird() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
@@ -122,9 +127,18 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
 
 
     public void placePipes() {
+        // (0-1) * pipeHeight/2 -> (0-256)
+
+        int randomPipeY = (int) (pipeY - pipeHeight/4 - Math.random()*(pipeHeight/2));
 
          Pipe topPipe = new Pipe(topPipeImg);
+         topPipe.y = randomPipeY;
          pipes.add(topPipe);
+
+
+         Pipe bottomPipe = new Pipe(bottomPipeImage);
+         bottomPipe.y = topPipe.y + pipeHeight + openingSpace;
+         pipes.add(bottomPipe);
     }
 
 
@@ -160,7 +174,13 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
             Pipe pipe = pipes.get(i);
             pipe.x += velocityX;
         }
+
+
+        if(bird.y > boardHeight) {
+            gameOver = true;
+        }
     }
+    
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Flappy Bird");
