@@ -25,6 +25,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     int birdHeight = 24;
     private final Timer placePipesTimer;
     private int openingSpace;
+    private int score;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -160,6 +161,16 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
             Pipe pipe = pipes.get(i);
             g.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height, null);
         }
+
+        // score
+        g.setColor(Color.white);
+        g.setFont(new Font("Arial", Font.PLAIN, 32));
+        if (gameOver) {
+            g.drawString("Game Over: " + String.valueOf((int) score), 10, 35);
+        }
+        else{
+            g.drawString(String.valueOf((int) score), 10, 35);
+        }
     }
 
     public void move() {
@@ -173,6 +184,16 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         for(int i=0; i < pipes.size(); i++) {
             Pipe pipe = pipes.get(i);
             pipe.x += velocityX;
+
+
+            if (!pipe.passed && bird.x > pipe.x + pipe.width){
+                pipe.passed = true;
+                score += 0.5; // 0.5 because there are 2 pipes! so 0.5*2 = 1 for each set of pipes
+            }
+
+            if (collision(bird, pipe)){
+                gameOver = true;
+            }
         }
 
 
@@ -181,6 +202,14 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         }
     }
     
+
+    public boolean collision(Bird a, Pipe b) {
+        return  a.x < b.x + b.width && // a's top left corner doesn't reach b's right corner
+                a.x + a.width > b.x && // a's top right corner passes b's top left corner
+                a.y < b.y + b.height && //a's top left corner doesn't reach b's bottom left corner
+                a.y + b.height > b.y;  // a's bottom left corner passes b's top left corner
+    }
+
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Flappy Bird");
