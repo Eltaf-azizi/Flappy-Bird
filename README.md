@@ -31,3 +31,10 @@ A fun and engaging Flappy Bird game developed using Java. This project replicate
 
  - Spacebar: Flap the bird's wings to ascend.
  - Avoid the pipes to keep the game running.
+
+## Future Improvements
+
+ - Add difficulty levels.
+ - Introduce sound effects and background music.
+ - Implement a leaderboard for high scores.
+ - Enhance graphics with animations.
