@@ -24,12 +24,21 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     int birdWidth = 34;
     int birdHeight = 24;
 
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
 
     class Bird {
         int x = birdX;
         int y = birdY;
         int width = birdWidth;
         int height = birdHeight;
+        @SuppressWarnings("unused")
         Image img;
 
 
@@ -83,7 +92,6 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         setFocusable(true);
         addKeyListener(this);
 
-
         //load images
         backgroundImg = new ImageIcon(getClass().getResource("./flappybirdbg.png")).getImage();
         birdImg = new ImageIcon(getClass().getResource("./flappybird.png")).getImage();
@@ -93,16 +101,13 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
 
         //bird
         bird = new Bird(birdImg);
-        pipes = new ArrayList<Pipe>();
+        pipes = new ArrayList<>();
 
 
         //place pipes timer
-        placePipeTimer = new Timer(1500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              // Code to be executed
-              placePipes();
-            }
+        placePipeTimer = new Timer(1500, (ActionEvent e) -> {
+            // Code to be executed
+            placePipes();
         });
         placePipeTimer.start();
 
@@ -132,6 +137,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     }
     
     
+    @Override
     public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		draw(g);
@@ -216,7 +222,6 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            // System.out.println("JUMP!");
             velocityY = -9;
 
             if (gameOver) {
@@ -232,7 +237,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    //not needed
+    
     @Override
     public void keyTyped(KeyEvent e) {}
 
