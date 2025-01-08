@@ -27,6 +27,7 @@ A fun and engaging Flappy Bird game developed using Java. This project replicate
 
        java FlappyBird
 
-Game Controls
-Spacebar: Flap the bird's wings to ascend.
-Avoid the pipes to keep the game running.
+## Game Controls
+
+ - Spacebar: Flap the bird's wings to ascend.
+ - Avoid the pipes to keep the game running.
