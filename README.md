@@ -41,3 +41,7 @@ A fun and engaging Flappy Bird game developed using Java. This project replicate
 
  ## Contributing
 Contributions are **welcome!** Feel free to open an issue or submit a pull request to enhance the game.
+
+## Acknowledgments
+ - Inspired by the original Flappy Bird game created by Dong Nguyen.
+ - Thanks to all contributors and open-source libraries.
