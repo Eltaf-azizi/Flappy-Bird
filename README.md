@@ -38,3 +38,6 @@ A fun and engaging Flappy Bird game developed using Java. This project replicate
  - Introduce sound effects and background music.
  - Implement a leaderboard for high scores.
  - Enhance graphics with animations.
+
+ - Contributing
+Contributions are welcome! Feel free to open an issue or submit a pull request to enhance the game.
